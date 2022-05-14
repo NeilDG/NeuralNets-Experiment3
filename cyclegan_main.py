@@ -69,9 +69,9 @@ def update_config(opts):
         constants.imgy_dir = "/home/neil_delgallego/SynthWeather Dataset 6/azimuth/*/rgb/*.png"
 
     elif (constants.server_config == 4):
-        opts.num_workers = 6
-        constants.imgx_dir = "D:/Datasets/Places Dataset/*.jpg"
-        constants.imgy_dir = "D:/Datasets/SynthWeather Dataset 6/azimuth/*/rgb/*.png"
+        opts.num_workers = 12
+        constants.imgx_dir = "C:/Datasets/Places Dataset/*.jpg"
+        constants.imgy_dir = "C:/Datasets/SynthWeather Dataset 6/azimuth/*/rgb/*.png"
         constants.imgx_dir_test = constants.imgx_dir
         constants.imgy_dir_test = constants.imgy_dir
 

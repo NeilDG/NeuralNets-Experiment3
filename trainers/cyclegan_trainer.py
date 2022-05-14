@@ -130,7 +130,7 @@ class CycleGANTrainer:
         self.D_A_pool = image_pool.ImagePool(50)
         self.D_B_pool = image_pool.ImagePool(50)
 
-        self.transform_op = cyclegan_transforms.CycleGANTransform(opts).requires_grad_(False)
+        self.transform_op = cyclegan_transforms.CycleGANTransform(opts).requires_grad_(False).to(self.gpu_device)
 
         self.visdom_reporter = plot_utils.VisdomReporter()
         self.optimizerG = torch.optim.Adam(itertools.chain(self.G_A.parameters(), self.G_B.parameters()), lr=self.g_lr)
@@ -246,15 +246,15 @@ class CycleGANTrainer:
             real_tensor = torch.ones_like(prediction)
             fake_tensor = torch.zeros_like(prediction)
 
-            D_A_real_loss = self.adversarial_loss(self.D_A_pool.query(self.D_A(tensor_y)), real_tensor) * self.adv_weight
-            D_A_fake_loss = self.adversarial_loss(self.D_B_pool.query(self.D_A(y_like.detach())), fake_tensor) * self.adv_weight
+            D_A_real_loss = self.adversarial_loss(self.D_A(tensor_y), real_tensor) * self.adv_weight
+            D_A_fake_loss = self.adversarial_loss(self.D_A_pool.query(self.D_A(y_like.detach())), fake_tensor) * self.adv_weight
 
             prediction = self.D_B(tensor_x)
             real_tensor = torch.ones_like(prediction)
             fake_tensor = torch.zeros_like(prediction)
 
             D_B_real_loss = self.adversarial_loss(self.D_B(tensor_x), real_tensor) * self.adv_weight
-            D_B_fake_loss = self.adversarial_loss(self.D_B(x_like.detach()), fake_tensor) * self.adv_weight
+            D_B_fake_loss = self.adversarial_loss(self.D_B_pool.query(self.D_B(x_like.detach())), fake_tensor) * self.adv_weight
 
             errD = D_A_real_loss + D_A_fake_loss + D_B_real_loss + D_B_fake_loss
             self.fp16_scaler.scale(errD).backward()
