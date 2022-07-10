@@ -13,13 +13,15 @@ cd scratch2/NeuralNets-GenerativeExperiment-6
 cd scratch2/Visdom
 
 git clone -b "workspace/V7.XX.XX" "https://github.com/NeilDG/NeuralNets-Experiment3.git" "scratch2/NeuralNets-GenerativeExperiment-3"
+git checkout "workspace/V8.XX.XX" "https://github.com/NeilDG/NeuralNets-Experiment3.git"
+git pull "https://github.com/NeilDG/NeuralNets-Experiment3.git" "workspace/V8.XX.XX"
 
 //Execute job
 sbatch slurm_install.slurm
 sbatch slurm_visdom_test.slurm
 sbatch visdom_run.slurm
 sbatch -w saliksik-cpu-23 visdom_run.slurm
-sbatch -w saliksik-cpu-23 --dependency=afterany:306882 visdom_run.slurm
+sbatch -w saliksik-cpu-23 --dependency=afterany:306883 visdom_run.slurm
 
 sbatch script_debug.slurm
 sbatch script_1.slurm
