@@ -670,6 +670,7 @@ class IIDTrainer:
             self.schedulerD_albedo.load_state_dict(checkpoint[constants.DISCRIMINATOR_KEY + "scheduler" + "A"])
 
         if (self.albedo_mode == 2):
+            print("Loaded P network")
             self.G_P.load_state_dict(checkpoint[constants.GENERATOR_KEY + "P"])
             self.optimizerP.load_state_dict(checkpoint[constants.GENERATOR_KEY + constants.OPTIMIZER_KEY + "P"])
             self.schedulerP.load_state_dict(checkpoint[constants.GENERATOR_KEY + "scheduler" + "P"])

@@ -26,7 +26,7 @@ srun python iid_train.py \
 --patch_size=64 \
 --plot_enabled=0 \
 --version_name="iid_networkv8.01" --min_epochs=40 --net_config=4 --num_blocks=4 \
---da_enabled=1 --da_version_name="embedding_v5.00_5" \
+--da_enabled=0 --da_version_name="embedding_v5.00_5" \
 --img_to_load=-1 --load_previous=0
 
 conda deactivate
